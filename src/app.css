@@ -1,0 +1,27 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.editor-wrapper {
+  position: relative;
+  height: 100vh;
+}
+
+.editor-wrapper .format-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 999;
+  background-color: orange;
+  opacity: 0;
+  padding: 5px 10px;
+  border-radius: 2px;
+  border: none;
+  transition: opacity 0.3s;
+}
+
+.editor-wrapper:hover .format-btn {
+  opacity: 1;
+}

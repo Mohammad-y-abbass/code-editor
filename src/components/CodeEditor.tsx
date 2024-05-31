@@ -33,8 +33,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
           semi: true,
           singleQuote: true,
         });
-        console.log('formatted code :', formatted);
-        editorRef.current.setValue(formatted);
+
+        editorRef.current.setValue(formatted.replace(/\n$/, ''));
       } catch (error) {
         console.error('Formatting error:', error);
       }
@@ -42,12 +42,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
   };
 
   return (
-    <>
-      <button onClick={handleFormat}>Format</button>
+    <div className='editor-wrapper'>
+      <button className='format-btn' onClick={handleFormat}>
+        Format
+      </button>
       <Editor
         onMount={onEditorDidMount}
         value={initialValue}
-        height={'90vh'}
+        height={'100vh'}
         language='javascript'
         theme='vs-dark'
         options={{
@@ -62,7 +64,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
           automaticLayout: true,
         }}
       />
-    </>
+    </div>
   );
 };
 
