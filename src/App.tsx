@@ -69,11 +69,16 @@ const App = () => {
 
   return (
     <div>
-      <CodeEditor />
-      {/* <textarea
+      <CodeEditor
+        initialValue='console.log("Hello World")'
+        onChange={(value) => {
+          setInput(value);
+        }}
+      />
+      <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-      ></textarea> */}
+      ></textarea>
       <button onClick={handleClick}>Compile Code</button>
       <iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html} />
     </div>
