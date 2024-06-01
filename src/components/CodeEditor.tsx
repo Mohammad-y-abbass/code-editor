@@ -3,15 +3,21 @@ import React, { useRef } from 'react';
 import * as prettier from 'prettier';
 import * as parserBabel from 'prettier/parser-babel';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
+import Loader from './Loader';
+import { editor } from 'monaco-editor';
 
 interface CodeEditorProps {
   initialValue: string;
   onChange: (value: string) => void;
+  onRun: () => void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const editorRef = useRef<any>();
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  initialValue,
+  onChange,
+  onRun,
+}) => {
+  const editorRef = useRef<editor.IStandaloneCodeEditor>();
 
   const onEditorDidMount: OnMount = (editor) => {
     editorRef.current = editor;
@@ -43,10 +49,16 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
 
   return (
     <div className='editor-wrapper'>
-      <button className='format-btn' onClick={handleFormat}>
-        Format
-      </button>
+      <div className='editor-btns'>
+        <button className='format-btn' onClick={handleFormat}>
+          Format
+        </button>
+        <button className='run-btn' onClick={onRun}>
+          Run
+        </button>
+      </div>
       <Editor
+        loading={<Loader />}
         onMount={onEditorDidMount}
         value={initialValue}
         height={'100vh'}
