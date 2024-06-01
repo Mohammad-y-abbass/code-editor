@@ -2,11 +2,24 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scrollbar-width: 0;
+  max-height: 100vh;
+}
+
+.app {
+  display: flex;
+  max-height: 100vh;
 }
 
 .editor-wrapper {
   position: relative;
   height: 100vh;
+  width: 100vw;
+}
+
+.preview {
+  max-height: 100vh;
+  width: 100%;
 }
 
 .editor-wrapper .format-btn {

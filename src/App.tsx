@@ -4,11 +4,12 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin';
 import { fetchPlugin } from './plugins/fetch-plugin';
 import CodeEditor from './components/CodeEditor';
 import './app.css';
+import Preview from './components/Preview';
 
 const App = () => {
   const [input, setInput] = useState('');
+  const [code, setCode] = useState('');
   const serviceRef = useRef<any>(null);
-  const iframeRef = useRef<any>(null);
 
   const startService = async () => {
     try {
@@ -39,49 +40,21 @@ const App = () => {
           global: 'window',
         },
       });
-      iframeRef.current.contentWindow.postMessage(
-        result.outputFiles[0].text,
-        '*'
-      );
+      setCode(result.outputFiles[0].text);
     } catch (error) {
       console.error('Error compiling code:', error);
     }
   };
 
-  const html = `
-<html>
-  <head></head>
-  <body>
-    <div id='root'></div>
-    <script>
-      window.addEventListener('message', (event) => {
-        try {
-          eval(event.data);
-        } catch (e) {
-          const root = document.getElementById('root');
-          root.innerHTML = '<h1 style="color: red;">Error: ' + e.message + '</h1>';
-        }
-      }, false);
-    </script>
-  </body>
-</html>
-
-  `;
-
   return (
-    <div>
+    <div className='app'>
       <CodeEditor
         initialValue='console.log("Hello World")'
         onChange={(value) => {
           setInput(value);
         }}
       />
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      ></textarea>
-      <button onClick={handleClick}>Compile Code</button>
-      <iframe ref={iframeRef} sandbox='allow-scripts' srcDoc={html} />
+      <Preview code={code} />
     </div>
   );
 };
