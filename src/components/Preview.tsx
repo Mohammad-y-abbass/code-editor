@@ -20,7 +20,7 @@ const html = `
       });
       window.addEventListener('message', (event) => {
         try {
-          eval(event.data);
+          console.log(eval(event.data));
         } catch (e) {
          handleError(e);
         }
@@ -32,6 +32,7 @@ const html = `
   `;
 
 const Preview: React.FC<PreviewProps> = ({ code, error }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const iframeRef = useRef<any>(null);
   console.log(error);
 

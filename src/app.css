@@ -21,6 +21,7 @@ body {
 .preview {
   max-height: 100vh;
   width: 100%;
+  border: none;
 }
 
 .format-btn {

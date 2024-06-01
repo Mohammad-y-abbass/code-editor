@@ -26,6 +26,7 @@ export async function bundler(rawCode: string): Promise<BundlerResult> {
     });
 
     return { code: result.outputFiles[0].text, error: '' };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { code: '', error: error.message };
   }
